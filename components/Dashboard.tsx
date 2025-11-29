@@ -8,7 +8,8 @@ interface DashboardProps {
   transactions: Transaction[];
 }
 
-const COLORS = ['#22c55e', '#3b82f6', '#f59e0b', '#ef4444'];
+// Updated COLORS to prioritize Blue (Brand) then Green, Amber, Red
+const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'];
 
 const Dashboard: React.FC<DashboardProps> = ({ goats, transactions }) => {
   const totalGoats = goats.length;
@@ -76,8 +77,8 @@ const Dashboard: React.FC<DashboardProps> = ({ goats, transactions }) => {
           label="Total Herd" 
           value={totalGoats} 
           icon={Activity} 
-          colorClass="text-blue-600" 
-          bgClass="bg-blue-50"
+          colorClass="text-violet-600" 
+          bgClass="bg-violet-50"
           trend="up"
         />
         <StatCard 
@@ -125,9 +126,9 @@ const Dashboard: React.FC<DashboardProps> = ({ goats, transactions }) => {
                   cursor={{ fill: '#f8fafc' }} 
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
                 />
-                <Bar dataKey="amount" fill="#22c55e" radius={[6, 6, 0, 0]} barSize={60}>
+                <Bar dataKey="amount" fill="#3b82f6" radius={[6, 6, 0, 0]} barSize={60}>
                   {financeData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.name === 'Income' ? '#22c55e' : '#ef4444'} />
+                    <Cell key={`cell-${index}`} fill={entry.name === 'Income' ? '#10b981' : '#ef4444'} />
                   ))}
                 </Bar>
               </BarChart>
