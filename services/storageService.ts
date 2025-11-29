@@ -22,7 +22,7 @@ const SEED_GOATS: Goat[] = [
       { date: '2023-12-01', weight: 58 },
     ],
     healthRecords: [
-      { id: 'h1', date: '2023-09-10', type: 'Vaccine', description: 'CDT Booster', cost: 12 },
+      { id: 'h1', date: '2023-09-10', type: 'Vaccine', description: 'CDT Booster', cost: 12, batchNumber: 'B-290X' },
       { id: 'h2', date: '2023-05-15', type: 'Checkup', description: 'Annual Physical', cost: 50 },
     ],
     notes: 'High milk yield expected.',

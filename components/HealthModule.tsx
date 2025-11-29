@@ -102,7 +102,12 @@ const HealthModule: React.FC<HealthModuleProps> = ({ goats, transactions }) => {
                           {record.type}
                         </span>
                     </td>
-                    <td className="px-6 py-4 text-slate-600">{record.description}</td>
+                    <td className="px-6 py-4 text-slate-600">
+                      {record.description}
+                      {record.batchNumber && (
+                        <div className="text-xs text-slate-400 mt-0.5 font-mono">Batch: {record.batchNumber}</div>
+                      )}
+                    </td>
                     <td className="px-6 py-4 text-right font-medium text-slate-900">${record.cost}</td>
                   </tr>
                 ))}

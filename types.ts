@@ -22,6 +22,7 @@ export interface HealthRecord {
   type: 'Vaccine' | 'Deworming' | 'Treatment' | 'Checkup';
   description: string;
   cost: number;
+  batchNumber?: string;
 }
 
 export interface Goat {

@@ -20,7 +20,8 @@ const GoatManager: React.FC<GoatManagerProps> = ({ goats, onAdd, onUpdate, onDel
     type: 'Checkup',
     date: new Date().toISOString().split('T')[0],
     cost: 0,
-    description: ''
+    description: '',
+    batchNumber: ''
   });
 
   const handleOpenAdd = () => {
@@ -50,7 +51,8 @@ const GoatManager: React.FC<GoatManagerProps> = ({ goats, onAdd, onUpdate, onDel
       type: newHealthRecord.type as any,
       date: newHealthRecord.date || new Date().toISOString().split('T')[0],
       description: newHealthRecord.description!,
-      cost: Number(newHealthRecord.cost) || 0
+      cost: Number(newHealthRecord.cost) || 0,
+      batchNumber: newHealthRecord.batchNumber
     };
 
     setCurrentGoat(prev => ({
@@ -62,7 +64,8 @@ const GoatManager: React.FC<GoatManagerProps> = ({ goats, onAdd, onUpdate, onDel
       type: 'Checkup',
       date: new Date().toISOString().split('T')[0],
       cost: 0,
-      description: ''
+      description: '',
+      batchNumber: ''
     });
   };
 
@@ -353,10 +356,10 @@ const GoatManager: React.FC<GoatManagerProps> = ({ goats, onAdd, onUpdate, onDel
                           value={newHealthRecord.type}
                           onChange={e => setNewHealthRecord({...newHealthRecord, type: e.target.value as any})}
                         >
+                          <option value="Checkup">Checkup</option>
                           <option value="Vaccine">Vaccine</option>
                           <option value="Deworming">Deworming</option>
                           <option value="Treatment">Treatment</option>
-                          <option value="Checkup">Checkup</option>
                         </select>
                         <input 
                           type="date" 
@@ -371,13 +374,32 @@ const GoatManager: React.FC<GoatManagerProps> = ({ goats, onAdd, onUpdate, onDel
                           value={newHealthRecord.cost || ''}
                           onChange={e => setNewHealthRecord({...newHealthRecord, cost: parseFloat(e.target.value)})}
                         />
-                        <input 
-                          type="text" 
-                          placeholder="Description (e.g. CDT Booster)"
-                          className="px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white"
-                          value={newHealthRecord.description}
-                          onChange={e => setNewHealthRecord({...newHealthRecord, description: e.target.value})}
-                        />
+                        {newHealthRecord.type === 'Vaccine' ? (
+                          <>
+                            <input 
+                              type="text" 
+                              placeholder="Vaccine Name (e.g. CDT)"
+                              className="px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white"
+                              value={newHealthRecord.description}
+                              onChange={e => setNewHealthRecord({...newHealthRecord, description: e.target.value})}
+                            />
+                            <input 
+                              type="text" 
+                              placeholder="Batch Number"
+                              className="px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white"
+                              value={newHealthRecord.batchNumber || ''}
+                              onChange={e => setNewHealthRecord({...newHealthRecord, batchNumber: e.target.value})}
+                            />
+                          </>
+                        ) : (
+                          <input 
+                            type="text" 
+                            placeholder="Description (e.g. Annual Physical)"
+                            className="px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white"
+                            value={newHealthRecord.description}
+                            onChange={e => setNewHealthRecord({...newHealthRecord, description: e.target.value})}
+                          />
+                        )}
                       </div>
                       <button 
                         type="button"
@@ -408,7 +430,12 @@ const GoatManager: React.FC<GoatManagerProps> = ({ goats, onAdd, onUpdate, onDel
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex justify-between">
-                                            <p className="font-medium text-slate-800 text-sm">{rec.description}</p>
+                                            <div>
+                                              <p className="font-medium text-slate-800 text-sm">
+                                                {rec.description}
+                                                {rec.batchNumber && <span className="text-slate-500 font-normal ml-2 text-xs">Batch: {rec.batchNumber}</span>}
+                                              </p>
+                                            </div>
                                             <p className="text-xs font-mono text-slate-500">{rec.date}</p>
                                         </div>
                                         <div className="flex justify-between mt-1">
